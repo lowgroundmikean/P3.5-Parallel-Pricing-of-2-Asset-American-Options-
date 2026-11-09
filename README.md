@@ -53,11 +53,11 @@ it is what makes the validation below possible.
  
 ### Speedup
  
-![speedup](figures/fig1_speedup.png)
+![speedup](figures35/fig1_speedupp3.png)
  
 ### Efficiency is governed by surface-to-volume
  
-![gustafson](figures/fig4_gustafson.png)
+![gustafson](figures35/fig4_gustafson.png)
  
 At every fixed core count, efficiency rises monotonically with mesh size. At
 P = 64 it climbs from 10.9% to 71.3%. The mechanism is geometric: a rank owning
