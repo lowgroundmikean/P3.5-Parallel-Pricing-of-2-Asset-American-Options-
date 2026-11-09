@@ -1,0 +1,98 @@
+==============================================================
+job      : 106897
+nodes    : sn[148-150]
+started  : Sun Nov  8 04:49:45 EST 2026
+==============================================================
+loaded MPI module: mvapich2/gcc12.1/2.3.7
+mpicc    : /gpfs/software/mvapich/gcc12.1/2.3.7/bin/mpicc
+gcc -O3 -I/gpfs/software/mvapich/gcc12.1/2.3.7/include -L/gpfs/software/mvapich/gcc12.1/2.3.7/lib -Wl,-rpath -Wl,/gpfs/software/mvapich/gcc12.1/2.3.7/lib -Wl,--enable-new-dtags -lmpi
+
+psor2d.c: In function ‘halo_exchange’:
+psor2d.c:224:5: warning: ‘MPI_Waitall’ accessing 20 bytes in a region of size 0 [-Wstringop-overflow=]
+  224 |     MPI_Waitall(nreq, req, MPI_STATUSES_IGNORE);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+psor2d.c:224:5: note: referencing argument 3 of type ‘MPI_Status[0]’
+In file included from psor2d.c:44:
+/gpfs/software/mvapich/gcc12.1/2.3.7/include/mpi.h:966:5: note: in a call to function ‘MPI_Waitall’
+  966 | int MPI_Waitall(int count, MPI_Request array_of_requests[], MPI_Status array_of_statuses[]);
+      |     ^~~~~~~~~~~
+In function ‘halo_exchange’,
+    inlined from ‘main’ at psor2d.c:348:17:
+psor2d.c:224:5: warning: ‘MPI_Waitall’ accessing 20 bytes in a region of size 0 [-Wstringop-overflow=]
+  224 |     MPI_Waitall(nreq, req, MPI_STATUSES_IGNORE);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+psor2d.c:224:5: note: referencing argument 3 of type ‘MPI_Status[0]’
+/gpfs/software/mvapich/gcc12.1/2.3.7/include/mpi.h: In function ‘main’:
+/gpfs/software/mvapich/gcc12.1/2.3.7/include/mpi.h:966:5: note: in a call to function ‘MPI_Waitall’
+  966 | int MPI_Waitall(int count, MPI_Request array_of_requests[], MPI_Status array_of_statuses[]);
+      |     ^~~~~~~~~~~
+In function ‘halo_exchange’,
+    inlined from ‘main’ at psor2d.c:348:17:
+psor2d.c:224:5: warning: ‘MPI_Waitall’ accessing 20 bytes in a region of size 0 [-Wstringop-overflow=]
+  224 |     MPI_Waitall(nreq, req, MPI_STATUSES_IGNORE);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+psor2d.c:224:5: note: referencing argument 3 of type ‘MPI_Status[0]’
+/gpfs/software/mvapich/gcc12.1/2.3.7/include/mpi.h: In function ‘main’:
+/gpfs/software/mvapich/gcc12.1/2.3.7/include/mpi.h:966:5: note: in a call to function ‘MPI_Waitall’
+  966 | int MPI_Waitall(int count, MPI_Request array_of_requests[], MPI_Status array_of_statuses[]);
+      |     ^~~~~~~~~~~
+build OK
+
+######## VALIDATION (European, projection disabled) ########
+RESULT style=european P=1 dims=1x1 M=128 nt=50 omega=1.952456 time=1.926446 comm=0.077839 iters=16500 l2=6.2780965307e+03 probeS=(100.0000,100.0000) probe=16.7396514651 probe_euro_exact=16.8131386165 premium=-0.0734871514 maxerr_vs_euro=7.400607e-02 errat=(102.326,102.326)
+RESULT style=european P=1 dims=1x1 M=256 nt=50 omega=1.975848 time=12.918638 comm=0.219133 iters=32106 l2=1.2647858788e+04 probeS=(100.3891,100.3891) probe=16.4689924507 probe_euro_exact=16.5240535414 premium=-0.0550610906 maxerr_vs_euro=5.574504e-02 errat=(102.724,102.724)
+RESULT style=european P=1 dims=1x1 M=512 nt=50 omega=1.987827 time=112.938029 comm=0.771524 iters=63804 l2=2.5387159304e+04 probeS=(100.0000,100.0000) probe=16.7576954920 probe_euro_exact=16.8131386165 premium=-0.0554431245 maxerr_vs_euro=5.642697e-02 errat=(103.509,102.924)
+RESULT style=european P=1 dims=1x1 M=1024 nt=50 omega=1.993889 time=851.571965 comm=2.261438 iters=124652 l2=5.0866104112e+04 probeS=(100.0976,100.0976) probe=16.6859332652 probe_euro_exact=16.7402620868 premium=-0.0543288216 maxerr_vs_euro=5.528278e-02 errat=(103.317,102.732)
+
+######## CONSISTENCY (American, M=256, answer must match) ########
+RESULT style=american P=1 dims=1x1 M=256 nt=50 omega=1.975848 time=12.540156 comm=0.187924 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+RESULT style=american P=2 dims=2x1 M=256 nt=50 omega=1.975848 time=6.634630 comm=0.210513 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+RESULT style=american P=4 dims=2x2 M=256 nt=50 omega=1.975848 time=3.817075 comm=0.217250 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+RESULT style=american P=16 dims=4x4 M=256 nt=50 omega=1.975848 time=1.270084 comm=0.269618 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+RESULT style=american P=64 dims=8x8 M=256 nt=50 omega=1.975848 time=0.778978 comm=0.535162 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+
+######## PERFORMANCE SWEEP (American) ########
+---- M=128 P=1 ----
+RESULT style=american P=1 dims=1x1 M=128 nt=50 omega=1.952456 time=1.914151 comm=0.074962 iters=14603 l2=6.6979029488e+03 probeS=(100.0000,100.0000) probe=17.2774060635 probe_euro_exact=16.8131386165 premium=0.4642674470 maxerr_vs_euro=9.754115e+00 errat=(2.326,2.326)
+---- M=128 P=2 ----
+RESULT style=american P=2 dims=2x1 M=128 nt=50 omega=1.952456 time=1.077754 comm=0.067111 iters=14603 l2=6.6979029488e+03 probeS=(100.0000,100.0000) probe=17.2774060635 probe_euro_exact=16.8131386165 premium=0.4642674470 maxerr_vs_euro=9.754115e+00 errat=(2.326,2.326)
+---- M=128 P=4 ----
+RESULT style=american P=4 dims=2x2 M=128 nt=50 omega=1.952456 time=0.648903 comm=0.166525 iters=14603 l2=6.6979029488e+03 probeS=(100.0000,100.0000) probe=17.2774060635 probe_euro_exact=16.8131386165 premium=0.4642674470 maxerr_vs_euro=9.754115e+00 errat=(2.326,2.326)
+---- M=128 P=16 ----
+RESULT style=american P=16 dims=4x4 M=128 nt=50 omega=1.952456 time=0.271596 comm=0.104435 iters=14603 l2=6.6979029488e+03 probeS=(100.0000,100.0000) probe=17.2774060635 probe_euro_exact=16.8131386165 premium=0.4642674470 maxerr_vs_euro=9.754115e+00 errat=(2.326,2.326)
+---- M=128 P=64 ----
+RESULT style=american P=64 dims=8x8 M=128 nt=50 omega=1.952456 time=0.274382 comm=0.237612 iters=14603 l2=6.6979029488e+03 probeS=(100.0000,100.0000) probe=17.2774060635 probe_euro_exact=16.8131386165 premium=0.4642674470 maxerr_vs_euro=9.754115e+00 errat=(2.326,2.326)
+---- M=256 P=1 ----
+RESULT style=american P=1 dims=1x1 M=256 nt=50 omega=1.975848 time=12.722341 comm=0.187970 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+---- M=256 P=2 ----
+RESULT style=american P=2 dims=2x1 M=256 nt=50 omega=1.975848 time=6.747202 comm=0.337565 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+---- M=256 P=4 ----
+RESULT style=american P=4 dims=2x2 M=256 nt=50 omega=1.975848 time=3.824628 comm=0.219895 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+---- M=256 P=16 ----
+RESULT style=american P=16 dims=4x4 M=256 nt=50 omega=1.975848 time=1.268349 comm=0.247195 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+---- M=256 P=64 ----
+RESULT style=american P=64 dims=8x8 M=256 nt=50 omega=1.975848 time=0.746677 comm=0.468265 iters=27928 l2=1.3489710295e+04 probeS=(100.3891,100.3891) probe=16.9934552067 probe_euro_exact=16.5240535414 premium=0.4694016653 maxerr_vs_euro=9.754115e+00 errat=(1.167,1.167)
+---- M=512 P=1 ----
+RESULT style=american P=1 dims=1x1 M=512 nt=50 omega=1.987827 time=106.552321 comm=0.701813 iters=54006 l2=2.7073400627e+04 probeS=(100.0000,100.0000) probe=17.2972017116 probe_euro_exact=16.8131386165 premium=0.4840630951 maxerr_vs_euro=9.754115e+00 errat=(0.585,0.585)
+---- M=512 P=2 ----
+RESULT style=american P=2 dims=2x1 M=512 nt=50 omega=1.987827 time=53.396974 comm=1.047140 iters=54006 l2=2.7073400627e+04 probeS=(100.0000,100.0000) probe=17.2972017116 probe_euro_exact=16.8131386165 premium=0.4840630951 maxerr_vs_euro=9.754115e+00 errat=(0.585,0.585)
+---- M=512 P=4 ----
+RESULT style=american P=4 dims=2x2 M=512 nt=50 omega=1.987827 time=27.671099 comm=0.706049 iters=54006 l2=2.7073400627e+04 probeS=(100.0000,100.0000) probe=17.2972017116 probe_euro_exact=16.8131386165 premium=0.4840630951 maxerr_vs_euro=9.754115e+00 errat=(0.585,0.585)
+---- M=512 P=16 ----
+RESULT style=american P=16 dims=4x4 M=512 nt=50 omega=1.987827 time=8.049964 comm=0.832970 iters=54006 l2=2.7073400627e+04 probeS=(100.0000,100.0000) probe=17.2972017116 probe_euro_exact=16.8131386165 premium=0.4840630951 maxerr_vs_euro=9.754115e+00 errat=(0.585,0.585)
+---- M=512 P=64 ----
+RESULT style=american P=64 dims=8x8 M=512 nt=50 omega=1.987827 time=3.025021 comm=1.167773 iters=54006 l2=2.7073400627e+04 probeS=(100.0000,100.0000) probe=17.2972017116 probe_euro_exact=16.8131386165 premium=0.4840630951 maxerr_vs_euro=9.754115e+00 errat=(0.585,0.585)
+---- M=1024 P=1 ----
+RESULT style=american P=1 dims=1x1 M=1024 nt=50 omega=1.993889 time=824.617435 comm=2.574634 iters=105154 l2=5.4240923431e+04 probeS=(100.0976,100.0976) probe=17.2219828067 probe_euro_exact=16.7402620868 premium=0.4817207199 maxerr_vs_euro=9.754115e+00 errat=(0.585,12.585)
+---- M=1024 P=2 ----
+RESULT style=american P=2 dims=2x1 M=1024 nt=50 omega=1.993889 time=417.953538 comm=2.411972 iters=105154 l2=5.4240923431e+04 probeS=(100.0976,100.0976) probe=17.2219828067 probe_euro_exact=16.7402620868 premium=0.4817207199 maxerr_vs_euro=9.754115e+00 errat=(0.585,12.585)
+---- M=1024 P=4 ----
+RESULT style=american P=4 dims=2x2 M=1024 nt=50 omega=1.993889 time=234.356706 comm=7.149502 iters=105154 l2=5.4240923431e+04 probeS=(100.0976,100.0976) probe=17.2219828067 probe_euro_exact=16.7402620868 premium=0.4817207199 maxerr_vs_euro=9.754115e+00 errat=(0.585,12.585)
+---- M=1024 P=16 ----
+RESULT style=american P=16 dims=4x4 M=1024 nt=50 omega=1.993889 time=59.150777 comm=11.887820 iters=105154 l2=5.4240923431e+04 probeS=(100.0976,100.0976) probe=17.2219828067 probe_euro_exact=16.7402620868 premium=0.4817207199 maxerr_vs_euro=9.754115e+00 errat=(0.585,12.585)
+---- M=1024 P=64 ----
+RESULT style=american P=64 dims=8x8 M=1024 nt=50 omega=1.993889 time=18.064931 comm=3.934765 iters=105154 l2=5.4240923431e+04 probeS=(100.0976,100.0976) probe=17.2219828067 probe_euro_exact=16.7402620868 premium=0.4817207199 maxerr_vs_euro=9.754115e+00 errat=(0.585,12.585)
+
+==============================================================
+finished : Sun Nov  8 05:36:46 EST 2026
+==============================================================
