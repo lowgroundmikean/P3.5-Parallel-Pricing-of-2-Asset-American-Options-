@@ -6,7 +6,8 @@ problems** and solved by **projected SOR** with red-black ordering over a 2-D
 MPI domain decomposition.
  
 **45.65× speedup on 64 cores** at a 1024×1024 mesh (71.3% efficiency,
-Karp-Flatt 0.0064), measured on three 28-core Intel Xeon E5-2683 v3 nodes.
+Karp-Flatt 0.0064), measured on three 28-core Intel Xeon E5-2683 v3 nodes (yes I am 
+still using the login node :)).
  
 > AMS 530: Principles of Parallel Computing · Stony Brook University
 > Project 3, Problem 3.5 · November 2026
